@@ -189,7 +189,7 @@ jobs:
         allowUpdates: true
         tag: ${{ env.DATE2 }}_${{ env.FILE_NAME }}
         commit: main
-        token: ${{ secrets.RELEASES_TOKEN }}
+        #token: ${{ secrets.RELEASES_TOKEN }}
         body: |
          #### Redmi-AX6（合并分区） immortalwrt-Openwrt 固件配置：
             - IP:192.168.123.1
