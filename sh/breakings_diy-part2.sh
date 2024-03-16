@@ -1040,10 +1040,13 @@ merge_package https://github.com/openwrt/packages packages/libs/nghttp3
 merge_package https://github.com/openwrt/packages packages/libs/ngtcp2
 
 # cryptsetup
-sed -i 's/PKG_VERSION:=.*/PKG_VERSION:=2.7.1/g' feeds/packages/utils/cryptsetup/Makefile
-sed -i 's/PKG_HASH:=.*/PKG_HASH:=da5d1419e2a86e01aa32fd79582cd54d208857cb541bca2fd426a5ff1aaabbc3/g' feeds/packages/utils/cryptsetup/Makefile
-sed -i '21i\PKG_CPE_ID:=cpe:/a:cryptsetup_project:cryptsetup\' feeds/packages/utils/cryptsetup/Makefile
-sed -i '78i\TARGET_CFLAGS += -D_LARGEFILE64_SOURCE\' feeds/packages/utils/cryptsetup/Makefile
+#sed -i 's/PKG_VERSION:=.*/PKG_VERSION:=2.7.1/g' feeds/packages/utils/cryptsetup/Makefile
+#sed -i 's|PKG_SOURCE_URL:=.*/PKG_SOURCE_URL:=@KERNEL/linux/utils/cryptsetup/v2.7|g' feeds/packages/utils/cryptsetup/Makefile
+#sed -i 's/PKG_HASH:=.*/PKG_HASH:=da5d1419e2a86e01aa32fd79582cd54d208857cb541bca2fd426a5ff1aaabbc3/g' feeds/#packages/utils/cryptsetup/Makefile
+#sed -i '21i\PKG_CPE_ID:=cpe:/a:cryptsetup_project:cryptsetup\' feeds/packages/utils/cryptsetup/Makefile
+#sed -i '79i\TARGET_CFLAGS += -D_LARGEFILE64_SOURCE\' feeds/packages/utils/cryptsetup/Makefile
+rm -rf feeds/packages/utils/cryptsetup
+cp -rf $GITHUB_WORKSPACE/general/cryptsetup feeds/packages/utils
 
 # inih
 cp -rf $GITHUB_WORKSPACE/general/inih feeds/packages/libs
@@ -1074,6 +1077,10 @@ sed -i '/CGO_ENABLED=0/{N;d;}' feeds/packages/utils/v2dat/Makefile
 # dae
 cp -rf $GITHUB_WORKSPACE/general/dae package/dae
 cp -rf $GITHUB_WORKSPACE/general/luci-app-dae package/luci-app-dae
+
+# dnsmasq
+rm -rf package/network/services/dnsmasq
+cp -rf $GITHUB_WORKSPACE/general/dnsmasq package/network/services
 
 # Optimization level -Ofast
 if [ "$platform" = "x86_64" ]; then
